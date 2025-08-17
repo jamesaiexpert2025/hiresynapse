@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: hiresynapse-api
+    env: python
+    rootDirectory: apps/api
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@hiresynapse.ai
+      - key: ADMIN_PASSWORD
+        value: change-me
+      - key: AI_CEO_EMAIL
+        value: ceo@hiresynapse.ai
+      - key: AI_CEO_PASSWORD
+        value: change-me
+      - key: GITHUB_OWNER
+        value: your-github-username
+      - key: GITHUB_REPO
+        value: hiresynapse
+      - key: GITHUB_TOKEN
+        sync: false
+databases:
+  - name: hiresynapse-db
